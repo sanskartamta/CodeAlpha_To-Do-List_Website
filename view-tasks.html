@@ -1,0 +1,130 @@
+<!-- view-tasks.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rock+Salt&display=swap" rel="stylesheet">
+  <style>
+    /* Add styles for the priority and delete buttons */
+    .priority-button, .delete-button {
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .button-container {
+      display: flex;
+      align-items: center;
+    }
+    .delete-button {
+      margin-left: auto; /* Push delete button to the right */
+    }
+    .button-container button {
+      margin-left: 5px; /* Add spacing between buttons */
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Let's do it</div>
+  </header>
+
+  <div class="container">
+    <h1 class="title">View Tasks</h1>
+    <ul id="taskList"></ul> <!-- List to display tasks -->
+
+    <a href="index.html">Add Tasks</a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+<!-- script.js -->
+<script>
+// Function to display tasks with priority and delete buttons
+function displayTasks() {
+  var taskList = document.getElementById("taskList");
+  taskList.innerHTML = ''; // Clear previous tasks
+
+  // Get tasks from local storage
+  var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  // If there are no tasks, inform the user
+  if (tasks.length === 0) {
+    var noTasksMessage = document.createElement("li");
+    noTasksMessage.textContent = "No tasks added yet.";
+    taskList.appendChild(noTasksMessage);
+  } else {
+    // Loop through tasks and display them with priority and delete buttons
+    tasks.forEach(function(task, index) {
+      var listItem = document.createElement("li");
+
+      // Create text node for task
+      var taskText = document.createTextNode(task);
+
+      // Create button container
+      var buttonContainer = document.createElement("div");
+      buttonContainer.classList.add("button-container");
+
+      // Create decrease priority button
+      var decreasePriorityButton = document.createElement("button");
+      decreasePriorityButton.classList.add("priority-button");
+      decreasePriorityButton.textContent = "▼";
+      decreasePriorityButton.addEventListener("click", function() {
+        // Decrease priority of the task by moving it down in the array
+        if (index < tasks.length - 1) {
+          var temp = tasks[index];
+          tasks[index] = tasks[index + 1];
+          tasks[index + 1] = temp;
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+          displayTasks(); // Re-display tasks after priority change
+        }
+      });
+
+      // Create increase priority button
+      var increasePriorityButton = document.createElement("button");
+      increasePriorityButton.classList.add("priority-button");
+      increasePriorityButton.textContent = "▲";
+      increasePriorityButton.addEventListener("click", function() {
+        // Increase priority of the task by moving it up in the array
+        if (index > 0) {
+          var temp = tasks[index];
+          tasks[index] = tasks[index - 1];
+          tasks[index - 1] = temp;
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+          displayTasks(); // Re-display tasks after priority change
+        }
+      });
+
+      // Create delete button
+      var deleteButton = document.createElement("button");
+      deleteButton.classList.add("delete-button");
+      deleteButton.innerHTML = "🗑️";
+      deleteButton.addEventListener("click", function() {
+        // Remove the task from the tasks array
+        tasks.splice(index, 1);
+        // Update local storage with the modified tasks array
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        // Re-display tasks
+        displayTasks();
+      });
+
+      // Append decrease priority button and increase priority button to button container
+      buttonContainer.appendChild(decreasePriorityButton);
+      buttonContainer.appendChild(increasePriorityButton);
+      buttonContainer.appendChild(deleteButton);
+
+      // Append task text and button container to list item
+      listItem.appendChild(taskText);
+      listItem.appendChild(buttonContainer);
+
+      // Append list item to task list
+      taskList.appendChild(listItem);
+    });
+  }
+}
+
+// Call displayTasks function when the page loads
+window.onload = displayTasks;
+</script>

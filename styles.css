@@ -1,0 +1,102 @@
+/* styles.css */
+html {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: linear-gradient(to bottom, #ffffff, #1a50f4); /* Adjust colors as needed */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color:linear-gradient(to bottom, #ffffff, #1a50f4);
+  color: #0e0d0d;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.logo {
+  font-size: 60px;
+  font-weight: bold;
+  font-family: 'Rock Salt', cursive, bold; /* Rock Salt font */
+  padding: 10px;
+  background-color: linear-gradient(to bottom, #ffffff, #1a50f4); /* Transparent padding */
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  font-size: 36px;
+  color: #333;
+  margin-top: 0;
+  font-family: 'Luckiest Guy', cursive; /* Luckiest Guy font */
+}
+
+input[type="text"] {
+  width: calc(100% - 24px);
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+a {
+  display: block;
+  text-align: center;
+  color: #007bff;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+span {
+  margin-right: 10px;
+}
+
+button.delete {
+  background-color: #ff6666;
+}
+
+button.delete:hover {
+  background-color: #ff3333;
+}

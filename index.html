@@ -1,0 +1,60 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rock+Salt&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo">Let's do it</div>
+  </header>
+
+  <div class="container">
+    <h1 class="title">To-Do List</h1>
+    <form id="taskForm">
+      <input type="text" id="taskInput" placeholder="Enter task">
+      <button type="submit">Add Task</button>
+    </form>
+    <div id="notification"></div>
+    <a href="view-tasks.html">View Tasks</a> <!-- Link to the view tasks page -->
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var taskForm = document.getElementById("taskForm");
+      var taskInput = document.getElementById("taskInput");
+      var notification = document.getElementById("notification");
+
+      taskForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        // Get tasks from local storage
+        var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+        // Add the new task
+        var newTask = taskInput.value.trim();
+        if (newTask !== "") {
+          tasks.push(newTask);
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+          showNotification("Task added successfully!");
+          taskInput.value = ""; // Clear input field
+        } else {
+          showNotification("Please enter a task!");
+        }
+      });
+
+      function showNotification(message) {
+        notification.textContent = message;
+        // Clear notification after 2 seconds
+        setTimeout(function() {
+          notification.textContent = "";
+        }, 2000);
+      }
+    });
+  </script>
+</body>
+</html>
